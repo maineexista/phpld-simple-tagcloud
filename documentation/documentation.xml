@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article id="documentation" lang="en">
+   <?dbhtml filename="documentation.html" ?>
+   <title>Simple TagCloud for PHP Link Directory</title>
+   <articleinfo>
+
+      <date>02.03.2009</date>
+      <releaseinfo>1.3 (Bugfix Release)</releaseinfo>
+      <releaseinfo>This release is a quick bug fix release. Encoding and non-integer weights where addressed, normalization was currently left-out as it produced unexpected output.</releaseinfo>
+
+      <abstract>
+         <para>
+            Add a <ulink url="http://en.wikipedia.org/wiki/Tag_cloud">Tag Cloud</ulink> to your link directory and join the new web2.0 style.
+         </para>
+      </abstract>
+
+      <author>
+         <firstname>Constantin</firstname>
+         <surname>Bejenaru</surname>
+         <othername>Boby</othername>
+         <affiliation>
+            <address>
+               <otheraddr><ulink url="http://www.frozenminds.com/">Frozenminds.com</ulink></otheraddr>
+               <email>constantin_bejenaru@frozenminds.com</email>
+            </address>
+         </affiliation>
+      </author>
+
+      <keywordset>
+         <keyword>tag</keyword>
+         <keyword>cloud</keyword>
+         <keyword>php</keyword>
+         <keyword>web2</keyword>
+         <keyword>web2.0</keyword>
+         <keyword>phpld</keyword>
+         <keyword>PHP Link Directory</keyword>
+         <keyword>memory</keyword>
+         <keyword>Frozenminds</keyword>
+         <keyword>Constantin</keyword>
+         <keyword>Bejenaru</keyword>
+      </keywordset>
+
+      <copyright>
+         <year>2006</year>
+         <year>2007</year>
+         <year>2008</year>
+         <year>2009</year>
+         <holder role="mailto:constantin_bejenaru@frozenminds.com">Constantin Bejenaru</holder>
+      </copyright>
+      <legalnotice>
+         <para>
+            <ulink url="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</ulink>
+         </para>
+         <para>
+            This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+         </para>
+         <para>
+            This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+         </para>
+         <para>
+            You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+         </para>
+      </legalnotice>
+   </articleinfo>
+
+   <section id="s1-introduction">
+      <title>Introduction</title>
+      <para>
+         A <ulink url="http://en.wikipedia.org/wiki/Tag_cloud">Tag Cloud</ulink> is a list of tags that are linked to an overview or to the search (like in this case). It gives a visitor a quick overview of what the site or current browsing page is about. Words (=tags) are counted and weighted - the more they occur in the content, the bigger the link is displayed.
+      </para>
+   </section>
+
+   <section id="s2-installation">
+      <title>Installation</title>
+      <para>
+         This installation of this module is very easy and does not require many coding skills. One file needs to be added to the current <application>PHP Link Directory</application> installation and some code needs to be added to one of the core PHP files and to a template file.
+      </para>
+      <section id="s2-1-copy-files">
+         <title>Add files</title>
+
+         <section id="s2-1-1-copy-php">
+            <title>Copy PHP file</title>
+            <para>
+               Copy the <acronym>PHP</acronym> file <filename>tagclouds.php</filename> to the root folder of your <application>PHP Link Directory</application> installation.
+            </para>
+         </section>
+
+      </section>
+
+      <section id="s2-2-edit-files">
+         <title>Edit your files</title>
+         <para>
+            Some files need to be edited in order to have this module available.
+         </para>
+
+         <section id="s2-2-1-edit-init-php">
+            <title>Edit <filename>index.php</filename></title>
+            <para>
+               Edit your <filename>index.php</filename> file and search for following code (at the end):
+            </para>
+            
+            <note>
+               <title>Note</title>
+               <para>This can be a little different from version to version.</para>
+            </note>
+            
+            <screen>
+               <computeroutput><![CDATA[
+//Rewrite Paging links
+if (ENABLE_REWRITE == 1)
+   $tpl->load_filter ('output', 'RewritePageLinks');
+
+//Clean whitespace
+$tpl->load_filter ('output', 'trimwhitespace');
+
+//Compress output for faster loading
+if (COMPRESS_OUTPUT == 1)
+   $tpl->load_filter ('output', 'CompressOutput');
+
+//Make output
+echo $tpl->fetch ('main.tpl', $id);
+               ]]></computeroutput>
+            </screen>
+            
+            <para>
+               Right before the above code-block, insert the following:
+            </para>
+            
+            <screen>
+               <userinput><![CDATA[
+//Include tagclouds file
+require_once 'tagclouds.php';
+
+//Initialize tagclouds class
+$tagcloud = new phpld_tagclouds ();
+
+//Add array with categories
+$tagcloud->add_categories ($categs);
+
+//Add array with links
+$tagcloud->add_links ($links);
+
+//Add array with articles [experimental]
+//$tagcloud->add_articles ($articles);
+
+//Define minimum occurrences of a word to be displayed
+$tagcloud->mincount (0);
+
+//Define maximum number of allowed tags (most important selected, the rest is removed)
+//zero or NULL means infinite
+$tagcloud->maxWordsCount (25);
+
+//Define minimum length of word to be displayed
+$tagcloud->minwordlength (2);
+
+//Define maximum length of a word to be displayed
+$tagcloud->maxwordlength (30);
+
+//Define minimum font size of a tag to be displayed (in procent)
+$tagcloud->minfontsize (100);
+
+//Define maximum font size of a tag to be displayed (in procent)
+$tagcloud->maxfontsize (300);
+
+//Define maximum nuber for element class (CSS styling)
+$tagcloud->styleclass (5);
+
+//Exclude numeric words
+$tagcloud->filter_numeric (TRUE);
+
+//Normalize tag cloud
+$tagcloud->normalize (FALSE);
+
+//Sort tags (alphabetical, count, random)
+$tagcloud->sortmethod ('alphabetical');
+
+//Define Change search URL variable (for phpLD 3.0.4+ = "search", all the rest = "q")
+$tagcloud->setsearchvariable ('search');
+
+//Define a title to be displayed above the tagclouds
+$tagcloud->title ('<h3>Tag Clouds</h3>');
+
+//Define words to not be displayed (string with words sepparated by comma or space, or an array with one word per key)
+$tagcloud->exclude ('as,at,for,from,he,she,it,be,by,to,and,if,it,is,in,or,of,off,about,the,teh,then');
+
+//Assign tagclouds to Smarty template variable "tagclouds"
+$tpl->assign ('tagclouds', $tagcloud->get_tagclouds ());
+                  ]]></userinput>
+            </screen>
+            
+            <para>
+               You can play with the above settings to fit your needs.
+            </para>
+         </section>
+
+         <section id="s2-2-2-edit-footer-tpl">
+            <title>Edit <filename>footer.tpl</filename></title>
+            <note>
+               <title>Note</title>
+               <para>You can also add this to whatever other template file.</para>
+            </note>
+            <para>
+               Edit <filename>footer.tpl</filename> file located in your current template folder (<filename>/templates/YourTemplate/</filename> for phpLD 3.0.5+ and <filename>/templates/</filename> for all previous versions) and add following code to desired place:
+            </para>
+            <screen>
+               <userinput><![CDATA[
+{* Display TagClouds *}
+{$tagclouds}
+               ]]></userinput>
+            </screen>
+         </section>
+
+      </section>
+      <section id="s2-3-clean-temp">
+         <title>Clean compiled template files</title>
+         <para>
+            Finally the last step, remove all files located in your <filename>/temp/templates/</filename>.
+         </para>
+         </section>
+   </section>
+
+   <section id="s3-customization">
+      <title>Customization</title>
+      <para>
+         The <application>Tag Clouds</application> output can be fully customized by adding CSS properties.
+      </para>
+      <section id="s3-1-customize-css">
+         <title>Customize style</title>
+         <para>
+            You can easily change properties for fonts, margins, colors or anything else, by adding <acronym>CSS</acronym> properties.
+         </para>
+         <para>
+            The <application>Tag Clouds</application> box is a DIV with class name <command><![CDATA[tagclouds]]></command>. Style all the rest of the child tags using the parent <command><![CDATA[tagclouds]]></command> class.
+         </para>
+         <para>
+            A simple example is:
+         </para>
+            <screen>
+               <userinput><![CDATA[
+.tagclouds { margin: 0 auto; padding: 20px; width: 70%; border: 1px dotted #9EC2F3; }
+.tagclouds h3 { font-size: 150%; }
+.tagclouds .cloud-word { /* add you general rules for ALL tags */ }
+               ]]></userinput>
+            </screen>
+         <para>
+            You can also add custom colors and text styling for different tags if you have defined a number for CSS classes:
+         </para>
+            <screen>
+               <userinput><![CDATA[
+.cloud-style-1 { color: #0000ff; /*blue*/ }
+.cloud-style-2 { color: #000; /*black*/ }
+.cloud-style-3 { color: #e98800;/*orange*/ }
+.cloud-style-4 { color: #0fb400;/*green*/ }
+.cloud-style-5 { color: #ff0000;/*red*/ }
+               ]]></userinput>
+            </screen>
+      </section>
+   </section>
+
+   <section id="s4-project-info">
+      <title>General Project Information</title>
+      <itemizedlist>
+         <listitem><para><emphasis>Title</emphasis>: <application>Tag Clouds for PHP Link Directory</application></para></listitem>
+         <listitem><para><emphasis>Homepage</emphasis>: <ulink url="http://www.frozenminds.com/phpld-tagclouds.html"><![CDATA[http://www.frozenminds.com/phpld-tagclouds.html]]></ulink></para></listitem>
+         <listitem><para><emphasis>Demo</emphasis>: not available at this time.</para></listitem>
+      </itemizedlist>
+   </section>
+
+   <section id="s5-screenshot">
+      <title>Screenshot</title>
+      <figure id="screenshot">
+         <title>Screenshot</title>
+         <mediaobject>
+            <imageobject>
+               <imagedata fileref="images/screenshot.png" format="PNG" />
+            </imageobject>
+         </mediaobject>
+   </figure>
+   </section>
+
+   <section id="s6-license">
+      <title>License</title>
+      <para>
+         This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License.
+      </para>
+
+      <section id="s6-license-gpl">
+         <title>GNU General Public License</title>
+         <para><trademark class="copyright">Copyright</trademark> 2006-2009 Constantin Bejenaru (http://www.frozenminds.com)</para>
+         <para>
+            <ulink url="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</ulink>
+         </para>
+         <para>
+            This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+         </para>
+         <para>
+            This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+         </para>
+         <para>
+            You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+         </para>
+      </section>
+   </section>
+
+   <section id="s7-powered">
+      <title>Powered by</title>
+      <para>
+         Module, support: <ulink url="http://www.frozenminds.com/">Frozenminds.com</ulink>
+      </para>
+      <para>
+         Documentation: <ulink url="http://www.docbook.org">DocBook</ulink>
+      </para>
+   </section>
+</article>

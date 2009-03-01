@@ -1,0 +1,138 @@
+body,
+html {
+   margin-top:0;
+   background:#fff;
+}
+
+body {
+   padding:0 10px 10px 10px;
+   font:90%/1.5 "Lucida Grande",Geneva,Verdana,Arial,Helvetica,sans-serif;
+}
+
+
+a {
+   font-weight:bold;
+   text-decoration:none;
+   border-bottom:1px dotted #666;
+}
+
+a:active,
+a:link,
+a:visited,
+a:focus {
+   color:#920D02;
+}
+
+a:hover {
+   color:#580801;
+   border-color:#580801;
+   border-bottom-style:solid;
+}
+
+li p
+{
+   display: inline;
+}
+
+
+div.note table, div.tip table, div.important table, div.caution table, div.warning table {
+   width: 95%;
+   border: 2px solid #B0C4DE;
+   background-color: #F0F8FF;
+   color: #000000;
+   /* padding inside table area */
+   padding: 0.5em;
+   margin-bottom: 0.5em;
+   margin-top: 0.5em;
+}
+
+
+div.note table {
+   background:#DEE2EE;
+   border-color:#104883;
+}
+
+div.note table {
+   background:#EFF3E7;
+   border-color:#94C27B;
+}
+
+div.important table {
+   background:#FFFABD;
+   border-color:#FFC600;
+}
+
+div.warning table {
+   background:#F8DBD0;
+   border-color:#625041;
+}
+
+div.caution table {
+   background:#FFA4A4;
+   border-color:#FF0000;
+}
+
+.screen {
+   background:#F8F9FF;
+   border:1px dotted #666;
+   padding:5px 5px 5px 30px;
+   list-style-type:decimal-leading-zero;
+}
+
+.screen, code, .computeroutput, .userinput {
+   text-decoration:none;
+   font-weight:normal;
+   color:#444;
+   font-family:Courier;
+   overflow:auto;
+}
+
+.legalnotice {
+   font-size:8pt;
+   text-decoration:italic;
+   font-family:Courier;
+   border:1px solid #ddd;
+   padding:5px;
+}
+
+.author {
+   border-width:0;
+   color:#5A7695;
+   font-style:italic;
+}
+
+.navheader {
+   padding:5px 10px;
+   background:#FFFABD;
+   color:#D16720;
+   font-weight:bold;
+   border:1px solid #FFC600;
+   border-top-width:0;
+}
+
+.section {
+   margin-top:3em;
+}
+
+hr {
+   border:0;
+   border-bottom:1px solid #FFC600;
+}
+
+abbr, acronym, .abbr, .acronym, .application {
+   font-style: normal;
+   border-bottom: dotted 1px #666;
+   color:#666;
+   font-weight:bold;
+}
+
+h1, h2, h3, h4 {
+   color:#4a6599;
+   font-weight: bold;
+   border-bottom:1px dotted #4A6599;
+}
+h1 { font-size:1.75em; }
+
+h2 { font-size: 1.5em; }
+
+h3 { font-size: 1.25em; }

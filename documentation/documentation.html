@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Simple TagCloud for PHP Link Directory</title><link rel="stylesheet" href="style/style.css" type="text/css" /><meta name="generator" content="DocBook XSL Stylesheets V1.69.1" /><meta name="description" content="&#10;            Add a Tag Cloud to your link directory and join the new web2.0 style.&#10;         " /><meta name="keywords" content="tag, cloud, php, web2, web2.0, phpld, PHP Link Directory, memory, Frozenminds, Constantin, Bejenaru" /><link rel="start" href="documentation.html" title="Simple TagCloud for PHP Link Directory" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Simple TagCloud for PHP Link Directory</th></tr></table><hr /></div><div class="article" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="documentation"></a>Simple TagCloud for PHP Link Directory</h2></div><div><div class="author"><h3 class="author"><span class="firstname">Constantin</span> <span class="othername">Boby</span> <span class="surname">Bejenaru</span></h3><div class="affiliation"><div class="address"><p><br />
+               <span class="otheraddr"><a href="http://www.frozenminds.com/" target="_top">Frozenminds.com</a></span><br />
+               <code class="email">&lt;<a href="mailto:constantin_bejenaru@frozenminds.com">constantin_bejenaru@frozenminds.com</a>&gt;</code><br />
+            </p></div></div></div></div><div><p class="releaseinfo">1.3 (Bugfix Release)</p></div><div><p class="releaseinfo">This release is a quick bug fix release. Encoding and non-integer weights where addressed, normalization was currently left-out as it produced unexpected output.</p></div><div><p class="copyright">Copyright © 2006, 2007, 2008, 2009 Constantin Bejenaru</p></div><div><div class="legalnotice"><a id="id4773137"></a><p>
+            <a href="http://www.gnu.org/copyleft/gpl.html" target="_top">http://www.gnu.org/copyleft/gpl.html</a>
+         </p><p>
+            This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+         </p><p>
+            This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+         </p><p>
+            You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+         </p></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+            Add a <a href="http://en.wikipedia.org/wiki/Tag_cloud" target="_top">Tag Cloud</a> to your link directory and join the new web2.0 style.
+         </p></div></div></div><hr /></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="documentation.html#s1-introduction">Introduction</a></span></dt><dt><span class="section"><a href="documentation.html#s2-installation">Installation</a></span></dt><dd><dl><dt><span class="section"><a href="documentation.html#s2-1-copy-files">Add files</a></span></dt><dt><span class="section"><a href="documentation.html#s2-2-edit-files">Edit your files</a></span></dt><dt><span class="section"><a href="documentation.html#s2-3-clean-temp">Clean compiled template files</a></span></dt></dl></dd><dt><span class="section"><a href="documentation.html#s3-customization">Customization</a></span></dt><dd><dl><dt><span class="section"><a href="documentation.html#s3-1-customize-css">Customize style</a></span></dt></dl></dd><dt><span class="section"><a href="documentation.html#s4-project-info">General Project Information</a></span></dt><dt><span class="section"><a href="documentation.html#s5-screenshot">Screenshot</a></span></dt><dt><span class="section"><a href="documentation.html#s6-license">License</a></span></dt><dd><dl><dt><span class="section"><a href="documentation.html#s6-license-gpl">GNU General Public License</a></span></dt></dl></dd><dt><span class="section"><a href="documentation.html#s7-powered">Powered by</a></span></dt></dl></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s1-introduction"></a>Introduction</h2></div></div></div><p>
+         A <a href="http://en.wikipedia.org/wiki/Tag_cloud" target="_top">Tag Cloud</a> is a list of tags that are linked to an overview or to the search (like in this case). It gives a visitor a quick overview of what the site or current browsing page is about. Words (=tags) are counted and weighted - the more they occur in the content, the bigger the link is displayed.
+      </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s2-installation"></a>Installation</h2></div></div></div><p>
+         This installation of this module is very easy and does not require many coding skills. One file needs to be added to the current <span class="application">PHP Link Directory</span> installation and some code needs to be added to one of the core PHP files and to a template file.
+      </p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="s2-1-copy-files"></a>Add files</h3></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="s2-1-1-copy-php"></a>Copy PHP file</h4></div></div></div><p>
+               Copy the <span class="acronym">PHP</span> file <code class="filename">tagclouds.php</code> to the root folder of your <span class="application">PHP Link Directory</span> installation.
+            </p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="s2-2-edit-files"></a>Edit your files</h3></div></div></div><p>
+            Some files need to be edited in order to have this module available.
+         </p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="s2-2-1-edit-init-php"></a>Edit <code class="filename">index.php</code></h4></div></div></div><p>
+               Edit your <code class="filename">index.php</code> file and search for following code (at the end):
+            </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note: Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="./stylesheet-images/note.png" /></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>This can be a little different from version to version.</p></td></tr></table></div><pre class="screen">
+               <code class="computeroutput">
+//Rewrite Paging links
+if (ENABLE_REWRITE == 1)
+   $tpl-&gt;load_filter ('output', 'RewritePageLinks');
+
+//Clean whitespace
+$tpl-&gt;load_filter ('output', 'trimwhitespace');
+
+//Compress output for faster loading
+if (COMPRESS_OUTPUT == 1)
+   $tpl-&gt;load_filter ('output', 'CompressOutput');
+
+//Make output
+echo $tpl-&gt;fetch ('main.tpl', $id);
+               </code>
+            </pre><p>
+               Right before the above code-block, insert the following:
+            </p><pre class="screen">
+               <strong class="userinput"><code>
+//Include tagclouds file
+require_once 'tagclouds.php';
+
+//Initialize tagclouds class
+$tagcloud = new phpld_tagclouds ();
+
+//Add array with categories
+$tagcloud-&gt;add_categories ($categs);
+
+//Add array with links
+$tagcloud-&gt;add_links ($links);
+
+//Add array with articles [experimental]
+//$tagcloud-&gt;add_articles ($articles);
+
+//Define minimum occurrences of a word to be displayed
+$tagcloud-&gt;mincount (0);
+
+//Define maximum number of allowed tags (most important selected, the rest is removed)
+//zero or NULL means infinite
+$tagcloud-&gt;maxWordsCount (25);
+
+//Define minimum length of word to be displayed
+$tagcloud-&gt;minwordlength (2);
+
+//Define maximum length of a word to be displayed
+$tagcloud-&gt;maxwordlength (30);
+
+//Define minimum font size of a tag to be displayed (in procent)
+$tagcloud-&gt;minfontsize (100);
+
+//Define maximum font size of a tag to be displayed (in procent)
+$tagcloud-&gt;maxfontsize (300);
+
+//Define maximum nuber for element class (CSS styling)
+$tagcloud-&gt;styleclass (5);
+
+//Exclude numeric words
+$tagcloud-&gt;filter_numeric (TRUE);
+
+//Normalize tag cloud
+$tagcloud-&gt;normalize (FALSE);
+
+//Sort tags (alphabetical, count, random)
+$tagcloud-&gt;sortmethod ('alphabetical');
+
+//Define Change search URL variable (for phpLD 3.0.4+ = "search", all the rest = "q")
+$tagcloud-&gt;setsearchvariable ('search');
+
+//Define a title to be displayed above the tagclouds
+$tagcloud-&gt;title ('&lt;h3&gt;Tag Clouds&lt;/h3&gt;');
+
+//Define words to not be displayed (string with words sepparated by comma or space, or an array with one word per key)
+$tagcloud-&gt;exclude ('as,at,for,from,he,she,it,be,by,to,and,if,it,is,in,or,of,off,about,the,teh,then');
+
+//Assign tagclouds to Smarty template variable "tagclouds"
+$tpl-&gt;assign ('tagclouds', $tagcloud-&gt;get_tagclouds ());
+                  </code></strong>
+            </pre><p>
+               You can play with the above settings to fit your needs.
+            </p></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="s2-2-2-edit-footer-tpl"></a>Edit <code class="filename">footer.tpl</code></h4></div></div></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note: Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="./stylesheet-images/note.png" /></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>You can also add this to whatever other template file.</p></td></tr></table></div><p>
+               Edit <code class="filename">footer.tpl</code> file located in your current template folder (<code class="filename">/templates/YourTemplate/</code> for phpLD 3.0.5+ and <code class="filename">/templates/</code> for all previous versions) and add following code to desired place:
+            </p><pre class="screen">
+               <strong class="userinput"><code>
+{* Display TagClouds *}
+{$tagclouds}
+               </code></strong>
+            </pre></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="s2-3-clean-temp"></a>Clean compiled template files</h3></div></div></div><p>
+            Finally the last step, remove all files located in your <code class="filename">/temp/templates/</code>.
+         </p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s3-customization"></a>Customization</h2></div></div></div><p>
+         The <span class="application">Tag Clouds</span> output can be fully customized by adding CSS properties.
+      </p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="s3-1-customize-css"></a>Customize style</h3></div></div></div><p>
+            You can easily change properties for fonts, margins, colors or anything else, by adding <span class="acronym">CSS</span> properties.
+         </p><p>
+            The <span class="application">Tag Clouds</span> box is a DIV with class name <span><strong class="command">tagclouds</strong></span>. Style all the rest of the child tags using the parent <span><strong class="command">tagclouds</strong></span> class.
+         </p><p>
+            A simple example is:
+         </p><pre class="screen">
+               <strong class="userinput"><code>
+.tagclouds { margin: 0 auto; padding: 20px; width: 70%; border: 1px dotted #9EC2F3; }
+.tagclouds h3 { font-size: 150%; }
+.tagclouds .cloud-word { /* add you general rules for ALL tags */ }
+               </code></strong>
+            </pre><p>
+            You can also add custom colors and text styling for different tags if you have defined a number for CSS classes:
+         </p><pre class="screen">
+               <strong class="userinput"><code>
+.cloud-style-1 { color: #0000ff; /*blue*/ }
+.cloud-style-2 { color: #000; /*black*/ }
+.cloud-style-3 { color: #e98800;/*orange*/ }
+.cloud-style-4 { color: #0fb400;/*green*/ }
+.cloud-style-5 { color: #ff0000;/*red*/ }
+               </code></strong>
+            </pre></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s4-project-info"></a>General Project Information</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p><span class="emphasis"><em>Title</em></span>: <span class="application">Tag Clouds for PHP Link Directory</span></p></li><li><p><span class="emphasis"><em>Homepage</em></span>: <a href="http://www.frozenminds.com/phpld-tagclouds.html" target="_top">http://www.frozenminds.com/phpld-tagclouds.html</a></p></li><li><p><span class="emphasis"><em>Demo</em></span>: not available at this time.</p></li></ul></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s5-screenshot"></a>Screenshot</h2></div></div></div><div class="figure"><a id="screenshot"></a><p class="title"><b>Figure 1. Screenshot</b></p><div class="mediaobject"><img src="images/screenshot.png" alt="Screenshot" /></div></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s6-license"></a>License</h2></div></div></div><p>
+         This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License.
+      </p><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="s6-license-gpl"></a>GNU General Public License</h3></div></div></div><p><span class="trademark">Copyright</span>© 2006-2009 Constantin Bejenaru (http://www.frozenminds.com)</p><p>
+            <a href="http://www.gnu.org/copyleft/gpl.html" target="_top">http://www.gnu.org/copyleft/gpl.html</a>
+         </p><p>
+            This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+         </p><p>
+            This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+         </p><p>
+            You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+         </p></div></div><div class="section" lang="en" xml:lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="s7-powered"></a>Powered by</h2></div></div></div><p>
+         Module, support: <a href="http://www.frozenminds.com/" target="_top">Frozenminds.com</a>
+      </p><p>
+         Documentation: <a href="http://www.docbook.org" target="_top">DocBook</a>
+      </p></div></div><div class="navfooter"><hr /></div></body></html>
